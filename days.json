@@ -1,36 +1,43 @@
 [
     {
         "english": "Sunday",
+        "simple": "Morg",
         "morning": [ "Morgsmorn" ],
         "evening": [ "Kvertzeve" ]
     },
     {
         "english": "Monday",
+        "simple": "Kvertz",
         "morning": [ "Kvertzmorn" ],
         "evening": [ "Dvargseve" ]
     },
     {
         "english": "Tuesday",
+        "simple": "Dvarg",
         "morning": [ "Dvargsmorn" ],
         "evening": [ "Fixeve" ]
     },
     {
         "english": "Wednesday",
+        "simple": "Fisk",
         "morning": [ "Fixmorn" ],
         "evening": [ "Blixeve" ]
     },
     {
         "english": "Thursday",
+        "simple": "Blix",
         "morning": [ "Blixmorn" ],
         "evening": [ "Kraxeve" ]
     },
     {
         "english": "Friday",
+        "simple": "Krax",
         "morning": [ "Kraxmorn" ],
         "evening": [ "Voxeve" ]
     },
     {
         "english": "Saturday",
+        "simple": "Vokatz",
         "morning": [ "Voxmorn" ],
         "evening": [
             "Morgseve",

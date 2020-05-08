@@ -4,25 +4,24 @@ module.exports = {
 	execute(msg, args, embed) {
 
 		const util = require('util');
+		const days = require('../days.json');
+		const months = require('../months.json');
 
-		var days = require('../days.json');
+		const dt = new Date();
 
-		var dt = new Date();
+		const day = dt.getDay();
+		const date = dt.getDate();
+		const month = months[dt.getMonth()];
+		const year = dt.getFullYear() - 1937;
 
-		var day = dt.getDay();
+		const english = days[day].english;
+		const simple = days[day].simple;
+		const morning = days[day].morning.join( ' OR ' );
+		const evening = days[day].evening.join( ' OR ' );
 
-		if ( args.length ) {
-			day = args[0];
-		}
+		embed.setTitle(`Today’s date is ${month} ${date}, ${year}CE2.`);
 
-		var english = days[day].english;
-
-		var morning = days[day].morning.join( ' OR ' );
-
-		var evening = days[day].evening.join( ' OR ' );
-
-		embed.setTitle('What day is it today?')
-			.setDescription( util.format( 'Today (%s), the daylight hours are named %s. Once the Sun has set, the night is named %s.', english, morning, evening ) );
+		embed.setDescription( `The day is ${simple}. Daylight hours are named ${morning}. Once the Sun has set, the night is named ${evening}.` );
 
 		msg.channel.send( embed );
 	},
