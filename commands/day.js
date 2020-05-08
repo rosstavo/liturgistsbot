@@ -3,9 +3,10 @@ module.exports = {
 	description: 'This command returns the day.',
 	execute(msg, args, embed) {
 
-		const util = require('util');
-		const days = require('../days.json');
-		const months = require('../months.json');
+		const util     = require('util');
+		const days     = require('../days.json');
+		const months   = require('../months.json');
+		const holidays = require('../holidays.json');
 
 		const dt = new Date();
 
@@ -22,7 +23,15 @@ module.exports = {
 		const morning = days[day].morning.join( ' OR ' );
 		const evening = days[day].evening.join( ' OR ' );
 
-		embed.setTitle(`Today’s date is the ${dateOrdinal} of ${month}, ${year}CE2.`);
+		let holiday = '';
+
+		let holidayKey = `${dt.getMonth()}-${date}`;
+
+		if ( holidays[holidayKey] ) {
+			holiday = `, and also the festival of **${holidays[holidayKey]}**`;
+		}
+
+		embed.setTitle(`Today’s date is the ${dateOrdinal} of ${month}, ${year}CE2${holiday}.`);
 
 		embed.setDescription( `The day is ${simple}. Daylight hours are named ${morning}. Once the Sun has set, the night is named ${evening}.` );
 
