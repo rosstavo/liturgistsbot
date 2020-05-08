@@ -11,6 +11,9 @@ module.exports = {
 
 		const day = dt.getDay();
 		const date = dt.getDate();
+
+		const dateOrdinal = date + (date > 0 ? ['th', 'st', 'nd', 'rd'][(date > 3 && date < 21) || date % 10 > 3 ? 0 : date % 10] : '');
+
 		const month = months[dt.getMonth()];
 		const year = dt.getFullYear() - 1937;
 
@@ -19,9 +22,11 @@ module.exports = {
 		const morning = days[day].morning.join( ' OR ' );
 		const evening = days[day].evening.join( ' OR ' );
 
-		embed.setTitle(`Today’s date is ${month} ${date}, ${year}CE2.`);
+		embed.setTitle(`Today’s date is the ${dateOrdinal} of ${month}, ${year}CE2.`);
 
 		embed.setDescription( `The day is ${simple}. Daylight hours are named ${morning}. Once the Sun has set, the night is named ${evening}.` );
+
+		embed.setURL('https://liturgistsrpg.com/codex/calendar-of-toinen/');
 
 		msg.channel.send( embed );
 	},
