@@ -153,3 +153,15 @@ bot.on('messageReactionAdd', ( messageReaction, user ) => {
     }
 
 });
+
+bot.on('guildMemberUpdate', ( oldMember, newMember ) => {
+
+    if ( newMember.nickname.match(/\[DM\]/g) ) {
+        newMember.addRole(process.env.DMROLE);
+    }
+
+    if ( !newMember.nickname.match(/\[DM\]/g) ) {
+        newMember.removeRole(process.env.DMROLE);
+    }
+
+});
