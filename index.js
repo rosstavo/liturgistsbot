@@ -70,26 +70,9 @@ bot.on('message', message => {
         return;
     }
 
-    if ( message.mentions.roles.find( val => val.name === 'dm' ) && process.env.IDLE === 'true' ) {
-        return message.reply('The DMs are on a break right now. If you need to make a check, please consult this table:\n\n**Task – DC**\nVery Easy – 5\nEasy – 10\nModerate – 15\nHard – 20\nVery Hard – 25\nNearly Impossible – 30');
-    }
-
 	const args = message.content.split(/ +/);
 
 	let commandName = args.shift().toLowerCase();
-
-    // var days = JSON.parse( fs.readFileSync('days.json') );
-    //
-    // days.find( function(item, key) {
-    //
-    //     if ( new RegExp(item.morning.join("|"), 'i').test(message.content) || new RegExp(item.evening.join("|"), 'i').test(message.content) ) {
-    //
-    //         commandName = '!day';
-    //
-    //         args[0] = key;
-    //     }
-    //
-    // } );
 
 	const command = bot.commands.get(commandName)
 		|| bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
@@ -123,44 +106,13 @@ bot.on('message', message => {
     }
 });
 
-/**
- * Log in the console when the bot is online
- */
-bot.on('messageReactionAdd', ( messageReaction, user ) => {
-
-    var guildChannel = messageReaction.message.guild.channels.findKey(channel => channel.name === messageReaction.message.channel.name).toString();
-
-    if ( messageReaction.emoji.name === '❗' ) {
-
-        var embed = functions.formatEmbed( new RichEmbed() );
-
-        embed.setTitle( `Request by ${messageReaction.message.author.username}` )
-            .setDescription( messageReaction.message.content )
-            .addField( 'User', `<@${messageReaction.message.author.id}>`, true )
-            .addField( 'Channel', messageReaction.message.guild.channels.get(guildChannel).toString(), true );
-
-        bot.channels.get( process.env.SUPPORT ).send( embed );
-
-        embed.setTitle( 'Your request has been received. Here is a copy:' );
-
-        user.send( embed );
-    }
-
-    if ( messageReaction.emoji.name === '✅' && guildChannel === process.env.SUPPORT ) {
-
-        messageReaction.message.delete();
-
-    }
-
-});
-
 bot.on('guildMemberUpdate', ( oldMember, newMember ) => {
 
-    if ( newMember.nickname.match(/\[DM\]/g) ) {
+    if ( newMember.nickname.match(/\[DM\]/g) || newMember.nickname.match(/\[RPDM\]/g) ) {
         newMember.addRole(process.env.DMROLE);
     }
 
-    if ( !newMember.nickname.match(/\[DM\]/g) ) {
+    if ( !newMember.nickname.match(/\[DM\]/g) && !newMember.nickname.match(/\[RPDM\]/g) ) {
         newMember.removeRole(process.env.DMROLE);
     }
 
