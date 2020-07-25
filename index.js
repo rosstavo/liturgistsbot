@@ -108,11 +108,11 @@ bot.on('message', message => {
 
 bot.on('guildMemberUpdate', ( oldMember, newMember ) => {
 
-    if ( newMember.nickname.match(/\[DM\]/g) || newMember.nickname.match(/\[RPDM\]/g) ) {
+    if (newMember.nickname.match(/\[.*?(DM).*?\]/gm) ) {
         newMember.addRole(process.env.DMROLE);
     }
 
-    if ( !newMember.nickname.match(/\[DM\]/g) && !newMember.nickname.match(/\[RPDM\]/g) ) {
+    if (!newMember.nickname.match(/\[.*?(DM).*?\]/gm) ) {
         newMember.removeRole(process.env.DMROLE);
     }
 
